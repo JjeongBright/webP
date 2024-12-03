@@ -5,3 +5,6 @@ html
     body
         h1 안녕하세요 #{name}님!
         a(href="/logout") 로그아웃
+        form(action="/upload" method="POST" enctype="multipart/form-data")
+            input(type="file" name="csvfile" accept=".csv" required)
+            button(type="submit") 업로드

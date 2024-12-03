@@ -1,0 +1,23 @@
+doctype html
+html
+    head
+        title 업로드 결과
+    body
+        h1 CSV 파일 업로드 결과
+        p 업로드된 파일 이름: #{fileName}
+        h2 CSV 파일의 열 이름들:
+        ul
+            each header in headers
+                li #{header}
+        h2 CSV 데이터 행:
+        table(border="1")
+            thead
+                tr
+                    each header in headers
+                        th #{header}
+            tbody
+                each row in rows
+                    tr
+                        each header in headers
+                            td #{row[header]}
+        a(href="/") 메인 페이지로 돌아가기
