@@ -1,17 +1,18 @@
-const express = require('express');
-const app = express();
-const router = express.Router();
-
+// middleWare.js
 const bodyParser = require("body-parser");
 const session = require("express-session");
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static("public"));
-app.use(
-    session({
-        secret: "secretary",
-        resave: false,
-        saveUninitialized: true,
-    })
-);
+const express = require('express');
 
-module.exports = router;
+function applyMiddlewares(app) {
+    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(express.static("public"));
+    app.use(
+        session({
+            secret: "secretary",
+            resave: false,
+            saveUninitialized: true,
+        })
+    );
+}
+
+module.exports = applyMiddlewares;

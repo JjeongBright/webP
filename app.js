@@ -1,19 +1,21 @@
 // app.js
 const express = require("express");
-const bodyParser = require("body-parser");
-const session = require("express-session");
-
 const app = express();
 const PORT = 3000;
 
-// Middleware setup
-const middleWare = require('execute/middleWare');
+// 미들웨어 불러오기
+const applyMiddlewares = require('./execute/middleWare');
+applyMiddlewares(app);
 
-// View engine setup
+// 뷰 엔진 설정
 app.set("view engine", "pug");
 app.set("views", "./views");
 
-const routers = require('/execute/router');
+// 라우터 불러오기
+const routers = require('./execute/router');
+
+// 라우터 적용
+app.use("/", routers);
 
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
