@@ -1,4 +1,4 @@
-const pool = require('./index'); // MySQL 연결 풀 가져오기
+const pool = require('./db'); // MySQL 연결 풀 가져오기
 
 async function getId(id) {
     try {
@@ -20,7 +20,18 @@ async function getPassword(id) {
     }
 }
 
+async function getName(id) {
+    try {
+        const [rows] = await pool.query('SELECT name FROM example WHERE id = ?', [id]);
+        return rows.length > 0 ? rows[0].name : null;
+    } catch (error) {
+        console.error('Error in getPassword:', error);
+        throw error;
+    }
+}
+
 module.exports = {
     getId,
     getPassword,
+    getName
 };
