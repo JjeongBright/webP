@@ -1,23 +1,37 @@
 doctype html
-html
+html(lang="ko")
     head
-        title 업로드 결과
+        title Upload Result
+        link(rel="stylesheet" href="uploadResult.css")
+        script.
+            // JavaScript로 쿼리 파라미터 확인 후 경고창 띄우기
+            document.addEventListener('DOMContentLoaded', function() {
+                const params = new URLSearchParams(window.location.search);
+                const error = params.get('error');
+                if (error) {
+                    alert(error);
+                }
+            });
     body
-        h1 CSV 파일 업로드 결과
-        p 업로드된 파일 이름: #{fileName}
-        h2 CSV 파일의 열 이름들:
-        ul
-            each header in headers
-                li #{header}
-        h2 CSV 데이터 행:
-        table(border="1")
-            thead
-                tr
-                    each header in headers
-                        th #{header}
-            tbody
-                each row in rows
-                    tr
-                        each header in headers
-                            td #{row[header]}
-        a(href="/") 메인 페이지로 돌아가기
+        header
+            h1 CNN_Project
+            p 업로드 결과입니다.
+        main
+            div.container
+                if errorMessage
+                    p.error-message(style="color: red;") #{errorMessage}
+                section.result-card
+                    h3 사용자의 차량에서 급발진이 발생할 수 있는 위험도에 관한 모델링 결과
+                    if pictureData
+                        div.image-container
+                            img(src=`data:image/png;base64,${pictureData}`, alt="Uploaded Picture")
+                    else
+                        p 아직 이미지가 없습니다.
+                    div.status-result
+                        ul.result-list
+                            li 사용자의 차량에 대한 검사 결과 #{currentStatus}%가 나왔습니다.<br> 현재 차량#{risk}
+            div.footer-actions
+                form(enctype="multipart/form-data", method="post", action="/upload")
+                    input(type="file", name="csvfile", class="btn-file")
+                    button.btn-primary(type="submit") 파일 업로드
+                button.btn-secondary(type="button", onclick="window.location.href='/mypage'") 마이페이지로 이동

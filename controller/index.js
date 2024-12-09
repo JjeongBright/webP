@@ -14,7 +14,7 @@ router.get("/", (req, res) => {
 });
 
 // Intro route
-router.get("/intro", async (req, res) => {
+router.get("/index", async (req, res) => {
     if (!req.session.user) {
         return res.redirect("/login");
     }

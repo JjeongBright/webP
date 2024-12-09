@@ -1,0 +1,14 @@
+doctype html
+html(lang="en")
+    head
+        title Confirm Picture
+    body
+        h1 Confirm Uploaded Picture
+
+        if pictureData
+            h2 Uploaded Image:
+            img(src=`data:image/png;base64,${pictureData}`, alt="Uploaded Picture")
+        else
+            h2 No picture found.
+
+        a(href="/") Back to Home

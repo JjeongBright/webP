@@ -30,8 +30,23 @@ async function getName(id) {
     }
 }
 
+async function getImage(id) {
+    const [rows] = await pool.query('SELECT graph_image FROM cnn_file WHERE id = ?', [id]);
+    if (rows.length > 0) {
+        return rows[0]; // 첫 번째 행 반환
+    } else {
+        return null;
+    }
+}
+
+async function insertCNN(id, fileName, graphImage, status, canId) {
+    await pool.query('INSERT INTO CNN_FILE VALUES (?, ?, ?, ?, ?)', [id, fileName, graphImage, status, canId]);
+}
+
 module.exports = {
     getId,
     getPassword,
-    getName
+    getName,
+    getImage,
+    insertCNN
 };

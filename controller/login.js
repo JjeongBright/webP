@@ -28,7 +28,7 @@ router.post("/login", async (req, res) => {
 
         const userName = await getName(id);
         req.session.user = { id: id, name: userName };
-        res.redirect("/intro");
+        res.redirect("/index");
 
     } catch (error) {
         console.error("로그인 처리 중 오류:", error);

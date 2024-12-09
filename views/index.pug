@@ -1,10 +1,33 @@
 doctype html
-html
+html(lang="ko")
     head
-        title 메인 페이지
+        title CNN_Project
+        link(rel="stylesheet" href="index.css")
     body
-        h1 안녕하세요 #{name}님!
-        a(href="/logout") 로그아웃
-        form(action="/upload" method="POST" enctype="multipart/form-data")
-            input(type="file" name="csvfile" accept=".csv" required)
-            button(type="submit") 업로드
+        header
+            h1 CNN_Project
+            p #{name}님, 환영합니다!
+        main
+            div.container
+                div.center-section
+                    section.card
+                        h2 무엇을 하는 사이트인가요?
+                        textarea(placeholder="이 사이트는 이상 탐지(Anomaly Detection)를 수행하여 특정 데이터에 비정상적인 패턴이 있는지를 분석하고 시각화하는 플랫폼이다. 주요 기능은 다음과 같다:\n\n" +
+                        "1.CSV 데이터 기반 이상 탐지 수행\n" +
+                        "Node.js를 통해 사용자가 업로드한 CSV 파일을 파이썬 스크립트로 전달하여 데이터를 처리한다. 파이썬에서 TranAD라는 딥러닝 기반 모델을 이용해 데이터를 분석하고 이상(anomaly)을 탐지한다.\n\n" +
+                        "2.이상 점수 계산 및 시각화\n" +
+                        "TranAD 모델로 계산된 이상 점수(Anomaly Score)를 기반으로, 각 데이터 구간에 대한 이상 여부를 판별한다. 점수는 시각화되어 그래프로 제공되며, 사용자는 그래프를 통해 데이터의 이상 발생 여부와 심각성을 직관적으로 확인할 수 있다.\n\n" +
+                        "3.이상 여부 알림\n" +
+                        "이상 점수가 설정된 임계값(threshold)을 초과하면 해당 구간을 비정상으로 간주한다. 이상 탐지 비율이 0% 이상이면, 사용자에게 데이터를 통해 이상이 존재한다고 알려준다.\n\n" +
+                        "4.이상 비율 요약 및 저장\n" +
+                        "데이터의 전체 구간 중 비정상 구간의 비율(%)을 계산하여 요약 결과를 텍스트 파일로 저장한다. 이를 통해 사용자는 데이터의 전반적인 상태를 간략히 파악할 수 있다.\n\n" +
+                        "5.사용자 편의성\n" +
+                        "사용자는 복잡한 AI 모델이나 데이터 전처리에 대해 알 필요 없이, 단순히 CSV 파일을 업로드하기만 하면 된다. 결과는 웹 인터페이스에서 확인할 수 있으며, 그래프와 요약된 이상 비율을 통해 데이터를 이해할 수 있다.\n\n" +
+                        "\n" +
+                        "이 사이트는 특히 IoT 센서 데이터, 서버 로그, 또는 네트워크 트래픽 등 시계열 데이터(Time Series Data)의 비정상 탐지를 필요로 하는 분야에서 유용하다. 기업에서 실시간 모니터링 및 데이터 품질 분석 도구로 활용될 수 있다." readonly)
+                    section.card
+                        h2 사용법
+                        textarea(placeholder="업로드 페이지를 들어간 후, 급발진이 의심되는 차량에 대한 데이터가 담긴 CSV 파일을 넣는다." readonly)
+            div.footer-actions
+                button.btn-primary(type="button", onclick="window.location.href='/mypage'") 마이페이지
+                button.btn-secondary(type="button", onclick="window.location.href='/upload'") 업로드페이지

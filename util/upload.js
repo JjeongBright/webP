@@ -6,8 +6,10 @@ const path = require('path');
 const fs = require('fs');
 const csv = require('csv-parser');
 
+const consoleCommand = require("./consoleInput");
+
 // 업로드 디렉토리 설정
-const uploadDir = path.join(__dirname, '..', 'uploads');
+const uploadDir = path.join(__dirname, '..', 'image');
 
 // 디렉토리 존재 여부 확인 및 생성
 if (!fs.existsSync(uploadDir)) {
@@ -40,11 +42,16 @@ const upload = multer({
     limits: { fileSize: 5 * 1024 * 1024 } // 최대 5MB
 });
 
-router.post('/upload', upload.single('csvfile'), (req, res) => {
+router.get("/uploads", (req, res) => {
+    // res.render('uploadResult');
+})
+
+router.post('/uploads', upload.single('csvfile'), (req, res) => {
     const filePath = req.file.path;
     const fileName = req.file.filename;
     const headers = [];
     const rows = [];
+
 
     fs.createReadStream(filePath)
         .pipe(csv())
