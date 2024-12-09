@@ -143,5 +143,7 @@ dist
 
 # python && csv
 tranAD_python
+.py
+.csv
 
 # End of https://www.toptal.com/developers/gitignore/api/node
