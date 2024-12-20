@@ -3,15 +3,17 @@ const router = express.Router();
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const {getCount, insertCNN} = require("../execute/data");
 
 
+router.use('/images', express.static(path.join(__dirname, 'image')));
 
-router.use('/image', express.static(path.join(__dirname, 'image')));
 
 
 function uploadCsvFile(req, res) {
 
     const py_dir = "./tranAD_python/";
+    const id = req.session.user.id;
 
     const upload = multer({
         dest: 'uploads/',
@@ -54,15 +56,22 @@ function uploadCsvFile(req, res) {
             fs.promises.readFile(imageUrl),
             fs.promises.readFile(txtUrl, 'utf-8')
         ])
-            .then(([imageData, textData]) => {
+            .then(async ([imageData, textData]) => {
                 const pictureData = imageData.toString('base64');
                 let currentStatus = parseFloat(textData.trim());
+                const idx = await getCount(id) + 1;
+                let status = "";
+                let fileName = "graph - " + idx;
 
                 if (currentStatus === 0) {
                     risk = "은 안전합니다.";
+                    status = "normal";
                 } else {
                     risk = "에서 이상행위가 탐지되어, 가까운 카센터로 내방하시길 바랍니다.";
+                    status = "anomaly"
                 }
+
+                insertCNN(fileName, imageData, status, idx, id);
 
                 res.render("uploadResult", {pictureData, currentStatus, risk});
             })

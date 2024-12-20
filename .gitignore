@@ -145,5 +145,6 @@ dist
 tranAD_python
 .py
 .csv
-
+public/images
+uploads
 # End of https://www.toptal.com/developers/gitignore/api/node

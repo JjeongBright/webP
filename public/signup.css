@@ -53,6 +53,37 @@ input[type="password"]:focus {
     outline: none;
 }
 
+/* 연구실 이름과 직책 라벨 스타일 (추가됨) */
+label[for="laboratory"],
+label[for="position"] {
+    font-size: 16px;
+    color: #c9d1d9;
+    margin-bottom: 5px;
+    display: block;
+    text-align: center;
+    width: 100%; /* 부모 컨테이너 너비에 맞춤 */
+}
+
+/* 연구실 이름과 직책 입력 필드 스타일 (추가됨) */
+input[type="text"][name="laboratory"],
+input[type="text"][name="position"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    background-color: #0d1117;
+    color: #c9d1d9;
+    font-size: 16px;
+}
+
+/* 연구실 이름과 직책 입력 필드 포커스 스타일 (추가됨) */
+input[type="text"][name="laboratory"]:focus,
+input[type="text"][name="position"]:focus {
+    border-color: #58a6ff;
+    outline: none;
+}
+
 /* 하단 버튼 스타일 */
 button {
     background-color: #238636;

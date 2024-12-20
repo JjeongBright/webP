@@ -1,0 +1,62 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        title My Page
+        link(rel="stylesheet", href="myPage.css")
+    body
+        .container
+            .profile-section
+                .profile-image
+                    img(src="../image/jiheon.jpg", alt="Profile Image")
+                .profile-info
+                    p Laboratory : #{laboratory}
+                    p Position : #{position}
+                    p Name : #{name}
+
+            .list-section
+                table.data-table
+                    thead
+                        tr
+                            th 파일 이름
+                            th 이미지 링크
+                            th 상태
+                    tbody
+                        each item in items
+                            tr
+                                td.item-filename= item.fileName
+                                td.item-imagelink
+                                    a.popup-trigger(href="#", data-picture=item.image) 이미지 보기
+                                    .popup-overlay(style="display:none;")
+                                        .popup-content
+                                            span.popup-close &times;
+                                            img(src="", alt="Graph Image")
+                                td.item-status= item.status
+
+        // 여기 스크립트 삽입
+        script.
+            document.addEventListener('DOMContentLoaded', () => {
+                // 이미지 링크 클릭 시 팝업 표시
+                document.querySelectorAll('.popup-trigger').forEach(trigger => {
+                    trigger.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const pictureData = this.dataset.picture;
+
+                        // popup-overlay 찾기
+                        const popupOverlay = this.parentElement.querySelector('.popup-overlay');
+                        const popupImage = popupOverlay.querySelector('img');
+                        popupImage.src = pictureData;
+                        // 팝업 표시
+                        popupOverlay.style.display = 'flex';
+                    });
+                });
+
+                // 팝업 닫기 버튼
+                document.querySelectorAll('.popup-close').forEach(closeBtn => {
+                    closeBtn.addEventListener('click', function() {
+                        const popupOverlay = this.closest('.popup-overlay');
+                        popupOverlay.style.display = 'none';
+                    });
+                });
+            });
