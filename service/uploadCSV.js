@@ -3,14 +3,14 @@ const router = express.Router();
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
-const {getCount, insertCNN} = require("../execute/data");
+const {getCount, insertCNN} = require("./data/queries");
 
 
 router.use('/images', express.static(path.join(__dirname, 'image')));
 
 
 
-function uploadCsvFile(req, res) {
+async function uploadCsvFile(req, res) {
 
     const py_dir = "./tranAD_python/";
     const id = req.session.user.id;

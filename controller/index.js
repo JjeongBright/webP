@@ -2,12 +2,12 @@
 const express = require("express");
 const router = express.Router();
 
-const { getName, getLaboratory, getPosition} = require("../execute/data"); // Data access functions
+const { getName, getLaboratory, getPosition} = require("../service/data/queries"); // Data access functions
 
 // Root route
 router.get("/", (req, res) => {
     if (req.session.user) {
-        res.render("index", { name: req.session.user.name });
+        res.render("index");
     } else {
         res.redirect("/login");
     }
@@ -26,7 +26,7 @@ router.get("/index", async (req, res) => {
         const position = await getPosition(id);
         res.render("index", { laboratory, position, name });
     } catch (error) {
-        console.error("사용자 이름을 가져오는 중 오류:", error);
+        console.error("오류 발생:", error);
         res.status(500).send("서버 오류");
     }
 });

@@ -1,4 +1,4 @@
-const pool = require('./db'); // MySQL 연결 풀 가져오기
+const pool = require('../../config/db'); // MySQL 연결 풀 가져오기
 
 async function getId(id) {
     try {

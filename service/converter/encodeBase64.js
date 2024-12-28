@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const sharp = require('sharp');
 
-const { getImage } = require("../execute/data");
+const { getImage } = require("../data/queries");
 async function convertImage(req, idx) {
     if (!req.session.user) {
         throw new Error("사용자 세션이 유효하지 않습니다.");

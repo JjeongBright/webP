@@ -3,7 +3,7 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const router = express.Router();
 
-const { getId, getPassword, getName } = require("../execute/data"); // Data access functions
+const { getId, getPassword, getName } = require("../service/data/queries"); // Data access functions
 
 // Login page routing
 router.get("/login", (req, res) => {
@@ -16,14 +16,15 @@ router.post("/login", async (req, res) => {
     try {
         const userId = await getId(id);
         if (!userId) {
-            return res.send("아이디가 존재하지 않습니다.");
+            return res.redirect("/login?error=아이디가 존재하지 않습니다.");
+
         }
 
         const hashedPassword = await getPassword(id);
         const isMatch = bcrypt.compareSync(password, hashedPassword);
 
         if (!isMatch) {
-            return res.send("비밀번호가 틀렸습니다.");
+            return res.redirect("/login?error=아이디나 비밀번호가 일치하지 않습니다.");
         }
 
         const userName = await getName(id);
@@ -37,3 +38,4 @@ router.post("/login", async (req, res) => {
 });
 
 module.exports = router;
+

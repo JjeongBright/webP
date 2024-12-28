@@ -3,8 +3,8 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const router = express.Router();
 
-const pool = require('../execute/db'); // Make sure to import your database connection
-const { getUserId } = require("../execute/data"); // Import getId function
+const pool = require('../config/db'); // Make sure to import your database connection
+const { getUserId } = require("../service/data/queries"); // Import getId function
 
 // Signup page routing
 router.get("/signup", (req, res) => {
@@ -17,7 +17,7 @@ router.post("/signup", async (req, res) => {
     try {
         const existingUser = await getUserId(id);
         if (existingUser) {
-            return res.send("이미 존재하는 아이디입니다.");
+            return res.redirect('/signup');
         }
 
         const hashedPassword = bcrypt.hashSync(password, 15);

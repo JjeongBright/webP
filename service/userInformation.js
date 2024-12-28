@@ -1,5 +1,5 @@
-const dat = require('../execute/data');
-const imageConverter = require('../util/confirmUploadPicture');
+const dat = require('./data/queries');
+const imageConverter = require('./converter/encodeBase64');
 
 
 
@@ -18,7 +18,7 @@ async function load(req, res) {
             const fileName = await dat.getFileName(id, i);
             const status = await dat.getState(id, i);
             try {
-                const pictureData = await imageConverter.convertImage(req, i); // await 추가
+                const pictureData = await imageConverter.convertImage(req, i);
                 items.push({
                     fileName: fileName,
                     image: `data:image/png;base64,${pictureData}`,
@@ -35,8 +35,7 @@ async function load(req, res) {
         }
     }
     else {
-        res.send("사진이 존재하지 않습니다. 업로드 1회 이상 실행시에만 확인이 가능합니다.");
-        res.redirect("/index")
+        return res.redirect("/index?error=사진이 존재하지 않습니다. 업로드 1회 이상 실행시에만 확인이 가능합니다.");
     }
 
     res.render("myPage", {

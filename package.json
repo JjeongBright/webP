@@ -1,7 +1,7 @@
 {
   "name": "web",
   "version": "1.0.0",
-  "main": "execute/db.js",
+  "main": "config/db.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

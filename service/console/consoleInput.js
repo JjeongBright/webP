@@ -1,6 +1,6 @@
 const { exec } = require('child_process');
 
-function executePython(res, callback) {
+async function executePython(res, callback) {
     const commands = `
         cd tranAD_python &&
         python usingModel.py

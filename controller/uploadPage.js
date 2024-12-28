@@ -1,10 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const fs = require('fs');
-const path = require('path');
-const multer = require('multer');
-const consoleInput = require('../util/consoleInput');
-const uploadCsv = require('../util/uploadCSV');
+const consoleInput = require('../service/console/consoleInput');
+const uploadCsv = require('../service/uploadCSV');
 
 
 const PORT = 3000;
@@ -16,9 +13,9 @@ router.get("/upload", (req, res) => {
     res.render("uploadResult", { errorMessage });
 });
 
-router.post("/upload", (req, res) => {
+router.post("/upload", async (req, res) => {
 
-    consoleInput.executePython(res);
+    await consoleInput.executePython(res);
 
     setTimeout(() => uploadCsv.uploadCsvFile(req, res), 5000);
 
